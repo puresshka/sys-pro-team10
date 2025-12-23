@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vanya-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vanya
+  template:
+    meta
+      labels:
+        app: vanya
+    spec:
+      containers:
+      - name: vanya
+        image: vanya-app
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+meta
+  name: vanya-service
+spec:
+  selector:
+    app: vanya
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
