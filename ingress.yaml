@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: team-ingress
+  annotations:
+    # Для /kirill — авторизация
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: basic-auth
+    nginx.ingress.kubernetes.io/auth-realm: "Authentication Required"
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /kirill
+        pathType: Prefix
+        backend:
+          service:
+            name: kirill-service
+            port:
+              number: 80
+      - path: /vanya
+        pathType: Prefix
+        backend:
+          service:
+            name: vanya-service
+            port:
+              number: 80
+      - path: /vasya
+        pathType: Prefix
+        backend:
+          service:
+            name: vasya-service
+            port:
+              number: 80
